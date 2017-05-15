@@ -1,0 +1,1550 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>VDS.Scheduler</name>
+    </assembly>
+    <members>
+        <member name="T:VDS.Scheduler.Entrants.BaseEntrant`1">
+            <summary>
+            Abstract base implementation of an entrant
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.IEntrant`1">
+            <summary>
+            Interface for entrants i.e. entities for whom fixtures will be scheduled
+            </summary>
+            <typeparam name="T">Real entrant type</typeparam>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.IEntrant`1.ActualEntrant">
+            <summary>
+            Gets the actual entrant instance
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.IEntrant`1.Seeding">
+            <summary>
+            Gets/Sets the seeding of the entrant
+            </summary>
+            <returns>Non-null for seeded entrants, null for unseeded entrants</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.IEntrant`1.Rank">
+            <summary>
+            Gets/Sets the ranking of the entrant
+            </summary>
+            <returns>Non-null for ranked entrants, null for unranked entrants</returns>
+            <remarks>Typically used to convey final positions in a league/tournament and so may not be set until that has concludedF</remarks>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.BaseEntrant`1.#ctor(`0)">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="actualEntrant">Actual etnrant</param>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseEntrant`1.ActualEntrant">
+            <summary>
+            Gets the actual entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseEntrant`1.Seeding">
+            <summary>
+            Gets/Sets the seeding of the entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseEntrant`1.Rank">
+            <summary>
+            Gets/Sets the ranking of the entrant
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.FixtureDependentEntrant`1">
+            <summary>
+            An entrant which is dependent on the outcome of a fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.BaseDependentEntrant`1">
+            <summary>
+            Abstract implementation of an entrant which is dependent on something else
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseDependentEntrant`1.UnderlyingEntrant">
+            <summary>
+            Gets the underlying entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseDependentEntrant`1.ActualEntrant">
+            <summary>
+            Gets the actual entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseDependentEntrant`1.Seeding">
+            <summary>
+            Gets/Sets the seeding
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.BaseDependentEntrant`1.Rank">
+            <summary>
+            Gets/Sets the rank
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.FixtureDependentEntrant`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0})">
+            <summary>
+            Creates a new entrant which is dependent on the winner of another fixture
+            </summary>
+            <param name="fixture">Fixture</param>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.FixtureDependentEntrant`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0},System.Boolean)">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="fixture">Fixture</param>
+            <param name="selectWinner">When set to true this entrant is the winner of the underlying fixture, when false the entrant is the loser of the underlying fixture</param>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.FixtureDependentEntrant`1.UnderlyingEntrant">
+            <summary>
+            Gets the underlying entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.FixtureDependentEntrant`1.Seeding">
+            <summary>
+            Gets/Sets the seeding
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.FixtureDependentEntrant`1.Rank">
+            <summary>
+            Gets/Sets the ranking
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.ScheduleDependentEntrant`1">
+            <summary>
+            An entrant which is dependent on some underlying schedule i.e. it will be dynamically resolved to the entrant of a given rank within some schedule
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.ScheduleDependentEntrant`1.#ctor(VDS.Scheduler.Schedules.ISchedule{`0},System.Int32)">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="schedule">Schedule the entrant depends on</param>
+            <param name="rank">Rank of entrant to pull from the schedule</param>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.ScheduleDependentEntrant`1.#ctor(VDS.Scheduler.Schedules.ISchedule{`0})">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="schedule">Schedule the entrant depends on</param>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.ScheduleDependentEntrant`1.UnderlyingEntrant">
+            <summary>
+            Gets the underlying entrant
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.DecoratorEntrant`1">
+            <summary>
+            A decorator for entrants
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="F:VDS.Scheduler.Entrants.DecoratorEntrant`1._entrant">
+            <summary>
+            Underlying entrant
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.DecoratorEntrant`1.#ctor(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Creates a new decorator entrant
+            </summary>
+            <param name="entrant">Underlying entrant</param>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.DecoratorEntrant`1.ActualEntrant">
+            <summary>
+            Gets the actual entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.DecoratorEntrant`1.Seeding">
+            <summary>
+            Gets/Sets the seeding
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.DecoratorEntrant`1.Rank">
+            <summary>
+            Gets/Sets the ranking
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.SimpleEntrant`1">
+            <summary>
+            Simple entrant implementation
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.SimpleEntrant`1.#ctor(`0)">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="actualEntrant">Actual entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.SimpleEntrant`1.ToString">
+            <summary>
+            Gets the string representation of the entrant which is that of the underlying entrant plus rank and seeding information
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:VDS.Scheduler.Entrants.StandingDependentEntrant`1">
+            <summary>
+            An entrant which is dependent on some underlying standings i.e. it will be dynamically resolved to the entrant of a given rank within some standings
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.StandingDependentEntrant`1.#ctor(VDS.Scheduler.Standings.IStandings{`0},System.Int32)">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="standings">Standings the entrant depends on</param>
+            <param name="rank">Rank of the entrant to select</param>
+        </member>
+        <member name="M:VDS.Scheduler.Entrants.StandingDependentEntrant`1.#ctor(VDS.Scheduler.Standings.IStandings{`0})">
+            <summary>
+            Creates a new entrant
+            </summary>
+            <param name="standings">Standings the entrant depends on</param>
+        </member>
+        <member name="P:VDS.Scheduler.Entrants.StandingDependentEntrant`1.UnderlyingEntrant">
+            <summary>
+            Gets the underlying entrant
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.BaseFixture`1">
+            <summary>
+            Abstract implementation of a fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.IFixture`1">
+            <summary>
+            Interface for fixtures
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.IFixture`1.A">
+            <summary>
+            Gets/Sets the first entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.IFixture`1.B">
+            <summary>
+            Gets/Sets the second entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.IFixture`1.Winner">
+            <summary>
+            Gets/Sets the winner
+            </summary>
+            <remarks>
+            The winner can only be set to one of the actual entrants and setting the winner should have the side effect of setting the loser
+            </remarks>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.IFixture`1.Loser">
+            <summary>
+            Gets/Sets the loser
+            </summary>
+            <remarks>
+            The loser can only be set to one of the actual entrants and setting the loser should have the side effect of setting the winner
+            </remarks>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.IFixture`1.IsDraw">
+            <summary>
+            Gets/Sets whether the fixture was a draw
+            </summary>
+            <remarks>
+            Some schedules and their supporting fixture implementations may not allow for draws therefore trying to set this may result in a <see cref="T:System.NotSupportedException"/>
+            </remarks>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.IFixture`1.Description">
+            <summary>
+            Gets the description of the fixture e.g. Final
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.BaseFixture`1.A">
+            <summary>
+            Gets/Sets the first entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.BaseFixture`1.B">
+            <summary>
+            Gets/Sets the second entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.BaseFixture`1.Winner">
+            <summary>
+            Gets/Sets the 
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.BaseFixture`1.Loser">
+            <summary>
+            Gets/Sets the loser of the contest
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.BaseFixture`1.IsDraw">
+            <summary>
+            Gets/Sets whether the fixture was a draw
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.BaseFixture`1.Description">
+            <summary>
+            Gets/Sets the description of the fixture
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.DecoratorFixture`1">
+            <summary>
+            A decorator around a fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="F:VDS.Scheduler.Fixtures.DecoratorFixture`1._fixture">
+            <summary>
+            Underlying fixture
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.DecoratorFixture`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0})">
+            <summary>
+            Creates a new standings fixture
+            </summary>
+            <param name="fixture">Fixture</param>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DecoratorFixture`1.A">
+            <summary>
+            Gets/Sets the first entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DecoratorFixture`1.B">
+            <summary>
+            Gets/Sets the second entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DecoratorFixture`1.Winner">
+            <summary>
+            Gets/Sets the winner
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DecoratorFixture`1.Loser">
+            <summary>
+            Gets/Sets the loser
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DecoratorFixture`1.IsDraw">
+            <summary>
+            Gets/Sets whether the fixture was drawn
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DecoratorFixture`1.Description">
+            <summary>
+            Gets/Sets the description of the fixture
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.RightDependentFixture`1">
+            <summary>
+            A fixture where one entrant is dependent on the result of another fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.RightDependentFixture`1.#ctor(VDS.Scheduler.Entrants.IEntrant{`0},VDS.Scheduler.Fixtures.IFixture{`0})">
+            <summary>
+            Creates a new fixture
+            </summary>
+            <param name="a">Entrant</param>
+            <param name="b">Fixture</param>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.RightDependentFixture`1.B">
+            <summary>
+            Gets the second entrant
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.LeftDependentFixture`1">
+            <summary>
+            A fixture where one entrant depends on the result of another fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.LeftDependentFixture`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0},VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Creates a new dependent fixture
+            </summary>
+            <param name="a">Fixture</param>
+            <param name="b">Entrant</param>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.LeftDependentFixture`1.A">
+            <summary>
+            Gets the first entrant
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.DependentFixture`1">
+            <summary>
+            A fixture which is dependent on the results of other fixtures
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.DependentFixture`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0},VDS.Scheduler.Fixtures.IFixture{`0})">
+            <summary>
+            Creates a new dependent fixture
+            </summary>
+            <param name="a">First fixture</param>
+            <param name="b">Second fixture</param>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DependentFixture`1.A">
+            <summary>
+            First entrant
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.DependentFixture`1.B">
+            <summary>
+            Second entrant
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.SimpleFixture`1">
+            <summary>
+            Simple implementation of a fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.SimpleFixture`1.#ctor">
+            <summary>
+            Creates a simple fixture which will be populated with entrants later
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.SimpleFixture`1.#ctor(VDS.Scheduler.Entrants.IEntrant{`0},VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Creates a new simple fixture
+            </summary>
+            <param name="a">First entrant</param>
+            <param name="b">Second entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.SimpleFixture`1.#ctor(VDS.Scheduler.Entrants.IEntrant{`0},VDS.Scheduler.Entrants.IEntrant{`0},System.String)">
+            <summary>
+            Creates a new simple fixture
+            </summary>
+            <param name="a">First entrant</param>
+            <param name="b">Second entrant</param>
+            <param name="description">Description</param>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.StandingsFixture`1">
+            <summary>
+            A decorator around a fixture which automatically updates associated standings
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.StandingsFixture`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0},VDS.Scheduler.Standings.IStandings{`0})">
+            <summary>
+            Creates a new standings fixture
+            </summary>
+            <param name="fixture">Fixture</param>
+            <param name="standings">Standings</param>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.StandingsFixture`1.Winner">
+            <summary>
+            Sets the winner updating standings appropriately
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.StandingsFixture`1.Loser">
+            <summary>
+            Sets the loser updating standings appropriately
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.StandingsFixture`1.IsDraw">
+            <summary>
+            Gets/Sets whether the fixture is a draw
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Fixtures.TournamentFixture`1">
+            <summary>
+            A decorator over a fixture which assigns ranks to entrants based on how far they have proceeded through the tournament
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Fixtures.TournamentFixture`1.#ctor(VDS.Scheduler.Fixtures.IFixture{`0},System.Int32,System.Int32)">
+            <summary>
+            Creates a new fixture
+            </summary>
+            <param name="fixture">Fixture to decorate</param>
+            <param name="winnerRank">Rank to assign to winner</param>
+            <param name="loserRank">Rank to assign to loser</param>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.TournamentFixture`1.Winner">
+            <summary>
+            Sets the winner updating rankings appropriately
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.TournamentFixture`1.Loser">
+            <summary>
+            Sets the loser updating rankings appropriately
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Fixtures.TournamentFixture`1.IsDraw">
+            <summary>
+            Gets whether the fixture is a draw which will always be false for tournament fixtures
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Scheduler">
+            <summary>
+            A helper class which given inputs can produce a number of types of schedule
+            </summary>
+            <remarks>
+            This is primarily a convenient entry point for applications to request schedules without having to directly instantiate the appropriate schedule type thus allowing the library to change/improve its implementations over time without the user needing to care
+            </remarks>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateLeague``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Schedules a traditional league where each entrant plays each other entrant once
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateLeague``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}},System.Int32)">
+            <summary>
+            Schedules a traditional league where each entrant plays each other entrant the specified number of times
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <param name="gamesPerOpponent">Number of games each entrant will play against each other entrant</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateLeague``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}},System.Int32,VDS.Scheduler.Schedulers.ILeagueScheduler{``0})">
+            <summary>
+            Schedules a traditional league where each entrant plays each other entrant the specified number of times
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <param name="gamesPerOpponent">Number of games each entrant will play against each other entrant</param>
+            <param name="scheduler">League Scheduler</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateKnockoutTournament``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Schedules a knockout tournament with an initial wildcard entry phase
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>A knockout tournament schedule</returns>
+            <remarks>
+            A knockout tournament schedule requires a number of entrants which is at least 2 and must be an exact multiple of 2 to schedule.  If there are more entrants than can be scheduled these will be ignored and discarded, if you wish to create a tournament schedule that includes all entrants use <see cref="M:VDS.Scheduler.Scheduler.CreateWildcardTournament``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})"/> instead
+            </remarks>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateWildcardTournament``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Schedules a knockout tournament with an initial wildcard entry phase
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>A wildcard tournament schedul</returns>
+            <remarks>
+            A wildcard tournament allows knockout tournaments which start with irregular numbers of entrants to be scheduled.  An initial wildcard round is introduced which allows the irregular number of entrants to be reduced down to a regular number, after that a standard knockout tournament schedule is followed.
+            </remarks>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateGroupStageTournament``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Schedules a tournament which has a group stage using the default group maxFixtures of four
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateGroupStageTournament``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}},System.Int32)">
+            <summary>
+            Schedules a tournament which has a group stage using the specified group maxFixtures
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <param name="groupSize">Group maxFixtures, must be a multiple of 4</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreatePoolStageTournament``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Creates a tournament with a knockout pool stage
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateBestOf``1(VDS.Scheduler.Entrants.IEntrant{``0},VDS.Scheduler.Entrants.IEntrant{``0},System.Int32)">
+            <summary>
+            Schedules a <em>best of</em> series between two entrants where the first to win the majority of fixtures is considered the winner
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="a">First entrant</param>
+            <param name="b">Second entrant</param>
+            <param name="maxFixtures">Maximum number of fixtures to play, must be an odd number</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateContinuous``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Creates a continuous random schedule
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateWinnerStaysOn``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Creates a continuous winner stays on schedule
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateKnockoutPool``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}})">
+            <summary>
+            Creates a knockout pool schedule
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Scheduler.CreateKnockoutChallenge``1(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{``0}},System.Boolean)">
+            <summary>
+            Creates a knockout challenge schedule
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <param name="entrants">Entrants</param>
+            <param name="bestFirst">Whether the best entrant goes first</param>
+            <returns>Schedule</returns>
+        </member>
+        <member name="T:VDS.Scheduler.Schedulers.BaseLeagueScheduler`1">
+            <summary>
+            Abstract implementation of a league scheduler which provides useful helper methods for derived implementations
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="T:VDS.Scheduler.Schedulers.ILeagueScheduler`1">
+            <summary>
+            Interface for schedulers which schedule leagues
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedulers.ILeagueScheduler`1.Schedule(VDS.Scheduler.Standings.IStandings{`0},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}},System.Int32)">
+            <summary>
+            Schedules a league
+            </summary>
+            <param name="standings">Standings for the league</param>
+            <param name="fixtures">Fixtures queue to populate</param>
+            <param name="gamesPerOpponent">How many games each entrant should play against each opponent</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedulers.BaseLeagueScheduler`1.Schedule(VDS.Scheduler.Standings.IStandings{`0},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}},System.Int32)">
+            <summary>
+            Schedules the actual fixtures
+            </summary>
+            <param name="standings">Standings</param>
+            <param name="fixtures">Fixtures queue to fill</param>
+            <param name="gamesPerOpponent">Games per opponent</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedulers.BaseLeagueScheduler`1.CreateFixture(VDS.Scheduler.Entrants.IEntrant{`0},VDS.Scheduler.Entrants.IEntrant{`0},VDS.Scheduler.Standings.IStandings{`0})">
+            <summary>
+            Creates a new fixture
+            </summary>
+            <param name="a">First entrant</param>
+            <param name="b">Second entrant</param>
+            <param name="standings">Standings</param>
+            <returns>Fixture</returns>
+        </member>
+        <member name="T:VDS.Scheduler.Schedulers.FairLeagueScheduler`1">
+            <summary>
+            A league scheduler which schedules fixtures in a random but fair manner i.e. for every two games played against an opponent an entrant is guaranteed to appear as the first entrant in one fixture and the second in another
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedulers.FairLeagueScheduler`1.Schedule(VDS.Scheduler.Standings.IStandings{`0},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}},System.Int32)">
+            <summary>
+            Schedules the actual fixtures
+            </summary>
+            <param name="standings">Standings</param>
+            <param name="fixtures">Fixtures queue to fill</param>
+            <param name="gamesPerOpponent">Games per opponent</param>
+        </member>
+        <member name="T:VDS.Scheduler.Schedulers.RandomLeagueScheduler`1">
+            <summary>
+            A league scheduler which schedules fixtures in an entirely random manner and does not guarantee anything about the order in which fixtures are scheduled.  For schedules with multiple games per opponent there is also no guarantee that for a given opponent the entrant will appear an equal number of times in the first/second entrant position in the fixture
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedulers.RandomLeagueScheduler`1.Schedule(VDS.Scheduler.Standings.IStandings{`0},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}},System.Int32)">
+            <summary>
+            Schedules the actual fixtures
+            </summary>
+            <param name="standings">Standings</param>
+            <param name="fixtures">Fixtures queue to fill</param>
+            <param name="gamesPerOpponent">Games per opponent</param>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.BestOfSchedule`1">
+            <summary>
+            Represents a best of schedule
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+            <remarks>
+            This is a schedule of fixtures between two entrants which continues until one has won the majority of the possible fixtures.  For example consider a best of schedule where the maximum fixtures is set to 5, once one entrant has won three fixtures they have won and no further fixtures are played.  This means that a schedule could contain 3, 4 or 5 fixtures depending on the outcomes of the fixtures.
+            </remarks>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.ILeagueSchedule`1">
+            <summary>
+            Interface for league schedules which provide detailed standings information in addition to basic ranking of 
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.ISchedule`1">
+            <summary>
+            Represents a schedule of fixtures
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.ISchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture to be played
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ISchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether there are more fixtures to be played
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ISchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ISchedule`1.AllowsDraws">
+            <summary>
+            Gets whether fixtures in this schedule will permit draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ISchedule`1.Entrants">
+            <summary>
+            Gets the entrants for whom fixtures have been scheduled
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ISchedule`1.RankedEntrants">
+            <summary>
+            Gets the entrants according to their rankings, this may be an incomplete order if the schedule has not been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ILeagueSchedule`1.Standings">
+            <summary>
+            Gets the standings
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.BestOfSchedule`1.#ctor(VDS.Scheduler.Entrants.IEntrant{`0},VDS.Scheduler.Entrants.IEntrant{`0},System.Int32)">
+            <summary>
+            Creates a new best of schedule
+            </summary>
+            <param name="a">First entrant</param>
+            <param name="b">Second entrant</param>
+            <param name="maxFixtures">Max fixtures i.e. what number of fixtures is the best of out of</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.BestOfSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.BestOfSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether there are more fixtures available
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.BestOfSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.BestOfSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule allows draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.BestOfSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.BestOfSchedule`1.RankedEntrants">
+            <summary>
+            Gets the entrants in ranked order
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.BestOfSchedule`1.Standings">
+            <summary>
+            Gets the standings
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1">
+            <summary>
+            A schedule which is continuous with randomly scheduled fixtures
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule allows draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.ContinuousRandomSchedule`1.RankedEntrants">
+            <summary>
+            Gets the entrants in ranked order
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1">
+            <summary>
+            A schedule for a knockout challenge, in essence a last man standing competition where each entrant is guaranteed to play at least one fixture.  It differs from the <see cref="T:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1"/> in that the challenge schedules entrants in ranked order so either the best entrant tries to fend off all comers of the worst entrant tries to work their way to the top.  The number of fixtures will always be one less than the number of entrants.
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}},System.Boolean)">
+            <summary>
+            Creates a new knockout challenge schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="bestFirst">Whether the best entrant goes first</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule does not allow draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutChallengeSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1">
+            <summary>
+            A schedule for a knockout tournament which has a preliminary pool stage (using the <see cref="T:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1"/> rules) followed by at most a last 8 (depending on number of entrants) following standard knockout tournament structure
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new knockout tournament schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.Schedule(System.Collections.Generic.List{VDS.Scheduler.Entrants.IEntrant{`0}},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}},System.Collections.Generic.List{VDS.Scheduler.Schedules.ISchedule{`0}})">
+            <summary>
+            Schedules the tournament
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="fixtures">Fixtures</param>
+            <param name="pools">Pools</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.GetRoundName(System.Int32,System.Int32)">
+            <summary>
+            Gets the round name
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Round name</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.GetWinnerRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the winner rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Winner rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.GetLoserRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the loser rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Loser rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule does not allow draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.PoolStageTournamentSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1">
+            <summary>
+            A schedule for a knockout pool, in essence a last man standing competition where each entrant is guaranteed to play at least one fixture.  The number of fixtures will always be one less than the number of entrants.
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new knockout pool schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule does not allow draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutPoolSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1">
+            <summary>
+            A continuous schedule where the winner stays on
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new winner stays on schedule
+            </summary>
+            <param name="entrants"></param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule allows draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WinnerStaysOnSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1">
+            <summary>
+            A schedule for a knockout tournament which has a wildcard entry round if there are an irregular number of entrants
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new knockout tournament schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.Schedule(System.Collections.Generic.List{VDS.Scheduler.Entrants.IEntrant{`0}},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}})">
+            <summary>
+            Schedules the tournament
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="fixtures">Fixtures</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.ScheduleFairRound(System.Collections.Generic.List{VDS.Scheduler.Entrants.IEntrant{`0}},System.Collections.Generic.List{VDS.Scheduler.Fixtures.IFixture{`0}},System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Schedules a fair round assuming that the entrants list is in rank order
+            </summary>
+            <param name="es">Entrants</param>
+            <param name="roundFixtures">List of fixtures to fill</param>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <param name="winnerRank">Winner rank</param>
+            <param name="loserRank">Loser rank</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.GetRoundName(System.Int32,System.Int32)">
+            <summary>
+            Gets the round name
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Round name</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.GetWinnerRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the winner rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Winner rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.GetLoserRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the loser rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Loser rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule does not allow draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.WildcardTournamentSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1">
+            <summary>
+            A schedule for a knockout tournament which has a preliminary group stage
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}},System.Int32)">
+            <summary>
+            Creates a new knockout tournament schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="groupSize">Group size</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.Schedule(System.Collections.Generic.List{VDS.Scheduler.Entrants.IEntrant{`0}},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}},System.Collections.Generic.List{VDS.Scheduler.Schedules.ISchedule{`0}},System.Int32)">
+            <summary>
+            Schedules the tournament
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="fixtures">Fixtures</param>
+            <param name="groups">Groups</param>
+            <param name="groupSize">Group size</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.GetRoundName(System.Int32,System.Int32)">
+            <summary>
+            Gets the round name
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Round name</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.GetWinnerRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the winner rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Winner rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.GetLoserRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the loser rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Loser rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether there are more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.AllowsDraws">
+            <summary>
+            Gets whether the schedule allows draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.GroupStageTournamentSchedule`1.RankedEntrants">
+            <summary>
+            Gets the entrants in rank order
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.LeagueSchedule`1">
+            <summary>
+            A schedule for leage fixtures
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.LeagueSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}},System.Int32)">
+            <summary>
+            Creates a new league schedule using a <see cref="T:VDS.Scheduler.Schedulers.RandomLeagueScheduler`1"/> for scheduling
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="gamesPerOpponent">Games per opponent</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.LeagueSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}},System.Int32,VDS.Scheduler.Schedulers.ILeagueScheduler{`0})">
+            <summary>
+            Creates a new league schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="gamesPerOpponent">Games per opponent</param>
+            <param name="scheduler">League scheduler to use</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.LeagueSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.LeagueSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.LeagueSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.LeagueSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule allows draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.LeagueSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.LeagueSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.LeagueSchedule`1.Standings">
+            <summary>
+            Gets the standings
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1">
+            <summary>
+            A schedule for a simple knockout tournmanet
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new knockout tournament schedule
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.Schedule(System.Collections.Generic.List{VDS.Scheduler.Entrants.IEntrant{`0}},System.Collections.Generic.Queue{VDS.Scheduler.Fixtures.IFixture{`0}})">
+            <summary>
+            Schedules the tournament
+            </summary>
+            <param name="entrants">Entrants</param>
+            <param name="fixtures">Fixtures</param>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.GetRoundName(System.Int32,System.Int32)">
+            <summary>
+            Gets the round name
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Round name</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.GetWinnerRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the winner rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Winner rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.GetLoserRank(System.Int32,System.Int32)">
+            <summary>
+            Gets the loser rank
+            </summary>
+            <param name="round">Round number</param>
+            <param name="totalRounds">Total rounds</param>
+            <returns>Loser rank</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.GetNextFixture">
+            <summary>
+            Gets the next fixture
+            </summary>
+            <returns>Next fixture</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.HasMoreFixtures">
+            <summary>
+            Gets whether the schedule has more fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.HasBeenCompleted">
+            <summary>
+            Gets whether the schedule has been completed
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.AllowsDraws">
+            <summary>
+            Gets that the schedule does not allow draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Schedules.KnockoutTournamentSchedule`1.RankedEntrants">
+            <summary>
+            Gets the ranked entrants
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Standings.BaseStanding">
+            <summary>
+            Abstract implementation of a standing
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Standings.IStanding">
+            <summary>
+            Interface for a standing which represents information for a single entrant within some standings
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStanding.Played">
+            <summary>
+            Gets/Sets the number of fixtures played
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStanding.Wins">
+            <summary>
+            Gets/Sets the number of wins
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStanding.Losses">
+            <summary>
+            Gets/Sets the number of losses
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStanding.Draws">
+            <summary>
+            Gets/Sets the number of draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStanding.Points">
+            <summary>
+            Gets/Sets the number of points
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStanding.CompareTo(VDS.Scheduler.Standings.IStanding)">
+            <summary>
+            Compares a standing to another
+            </summary>
+            <param name="other">Other standing</param>
+            <returns>Relative sort order of this against the other standing</returns>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStanding.Played">
+            <summary>
+            Gets/Sets the number of played fixtures
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStanding.Wins">
+            <summary>
+            Gets/Sets the number of wins
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStanding.Losses">
+            <summary>
+            Gets/Sets the number of losses
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStanding.Draws">
+            <summary>
+            Gets/Sets the number of draws
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStanding.Points">
+            <summary>
+            Gets/Sets the number of points
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Standings.BaseStandings`1">
+            <summary>
+            Abstract implementation of standings
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="T:VDS.Scheduler.Standings.IStandings`1">
+            <summary>
+            Interface for standings
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.IStandings`1.AwardWin(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Awards a win to a entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.IStandings`1.AwardLoss(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Awards a loss to an entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.IStandings`1.AwardDraw(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Awards a draw to an entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStandings`1.Count">
+            <summary>
+            Gets the number of entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStandings`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStandings`1.RankedEntrants">
+            <summary>
+            Gets the entrants ordered by their current ranking
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.IStandings`1.Item(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Gets the current data for an entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+            <returns>Standing data for an entrant</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates new standings
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.CreateStanding">
+            <summary>
+            Creates a standing
+            </summary>
+            <returns>Standing</returns>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.AwardWin(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Awards a win to the given entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.AwardLoss(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Awards a loss to the given entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.AwardDraw(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Awards a draw to the given entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.UpdateRanks">
+            <summary>
+            Updates ranks based on the current standings
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.GetEnumerator">
+            <summary>
+            Gets the enumerator over entrants and their standings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.BaseStandings`1.System#Collections#IEnumerable#GetEnumerator">
+            <summary>
+            Gets the enumerator over entrants and their standings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.PointsPerWin">
+            <summary>
+            Gets the number of points awarded per win
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.PointsPerDraw">
+            <summary>
+            Gets the number of points awarded per draw
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.PointsPerLoss">
+            <summary>
+            Gets the number of points awarded per loss
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.Count">
+            <summary>
+            Gets the number of entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.Entrants">
+            <summary>
+            Gets the entrants
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.RankedEntrants">
+            <summary>
+            Gets the entrants ranked by their standings
+            </summary>
+        </member>
+        <member name="P:VDS.Scheduler.Standings.BaseStandings`1.Item(VDS.Scheduler.Entrants.IEntrant{`0})">
+            <summary>
+            Gets the standing information for a given entrant
+            </summary>
+            <param name="entrant">Entrant</param>
+            <returns>Standing information</returns>
+        </member>
+        <member name="T:VDS.Scheduler.Standings.SimpleStanding">
+            <summary>
+            Simple implementation of a standing
+            </summary>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.SimpleStanding.#ctor">
+            <summary>
+            Creates a new standing
+            </summary>
+        </member>
+        <member name="T:VDS.Scheduler.Standings.SimpleStandings`1">
+            <summary>
+            A simple standings implementation
+            </summary>
+            <typeparam name="T">Actual entrant type</typeparam>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.SimpleStandings`1.#ctor(System.Collections.Generic.IEnumerable{VDS.Scheduler.Entrants.IEntrant{`0}})">
+            <summary>
+            Creates a new set of standings
+            </summary>
+            <param name="entrants">Entrants</param>
+        </member>
+        <member name="M:VDS.Scheduler.Standings.SimpleStandings`1.CreateStanding">
+            <summary>
+            Creates a simple standing
+            </summary>
+            <returns>Simple standing</returns>
+        </member>
+    </members>
+</doc>

@@ -10,8 +10,6 @@ using RomanticWeb.Entities;
 namespace ConsoleApplication4
 {
     [Class("foaf", "Person")]
-    [Class("foaf", "Agent")]
-
     public interface IPerson : IEntity
     {
         [Property("http://xmlns.com/foaf/0.1/givenName")]

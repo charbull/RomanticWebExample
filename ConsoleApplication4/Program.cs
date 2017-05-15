@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using VDS.RDF;
+using VDS.RDF.Writing;
 
 namespace ConsoleApplication4
 {
@@ -13,6 +15,7 @@ namespace ConsoleApplication4
     {
 
         static IEntityContext context;
+        static ITripleStore store;
 
         static void Main(string[] args)
         {
@@ -33,8 +36,23 @@ namespace ConsoleApplication4
                 builder.FromAssemblyOf<IPerson>();
             });
 
-            var dnrTripleStore = new VDS.RDF.TripleStore();
-            contextFactory.WithDotNetRDF(dnrTripleStore);
+            store = new TripleStore();
+            contextFactory.WithDotNetRDF(store);
+            contextFactory.WithMetaGraphUri(new Uri("http://example.com/data#"));
+            context = contextFactory.CreateContext();
+        }
+
+
+        public static void initContextWithStore()
+        {
+            var contextFactory = new EntityContextFactory();
+            contextFactory.WithMappings((MappingBuilder builder) =>
+            {
+                builder.FromAssemblyOf<IPerson>();
+            });
+
+            store = new TripleStore();
+            contextFactory.WithDotNetRDF(store);
             contextFactory.WithMetaGraphUri(new Uri("http://example.com/data#"));
             context = contextFactory.CreateContext();
         }
@@ -51,6 +69,8 @@ namespace ConsoleApplication4
 
             // commit data to store
             context.Commit();
+            store.SaveToFile("C:\\output.trig", new TriGWriter());
+            store.SaveToFile("C:\\output.nq", new NQuadsWriter());
         }
 
         public static IPerson loadPerson(string personId)
