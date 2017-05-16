@@ -23,7 +23,7 @@ namespace ConsoleApplication4
         static void Main(string[] args)
         {
 
-            initContextWithStore();
+            initContextWithStore(); 
             createPerson("Tim-Berners-Lee", "Tim", "Berners-Lee");
             var tim = loadPerson("Tim-Berners-Lee");
             
