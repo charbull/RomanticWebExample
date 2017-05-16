@@ -24,7 +24,7 @@ namespace ConsoleApplication4
         static void Main(string[] args)
         {
 
-            initContextWithStore();
+            initContextWithStardog();
             //testKnows();
             //initContextWithStore();
             testPersonInsert();
@@ -37,8 +37,7 @@ namespace ConsoleApplication4
             //tim.Friends.Add(John);
 
             //            context.Commit();
-            //store.SaveToFile("C:\\output.trig", new TriGWriter());
-            //store.SaveToFile("C:\\output.nq", new NQuadsWriter());
+           
             // Console.Read();
         }
 
@@ -90,23 +89,23 @@ namespace ConsoleApplication4
             contextFactory.WithDotNetRDF(store);
             contextFactory.WithMetaGraphUri(new Uri("http://se.com"));
             context = contextFactory.CreateContext();
+
+
+            //This saveToFile only works if we are not using a persistant store like Stardog or else
+            store.SaveToFile("C:\\output.trig", new TriGWriter());
+            store.SaveToFile("C:\\output.nq", new NQuadsWriter());
         }
 
 
-        public static void initContextWithStore()
+        public static void initContextWithStardog()
         {
             var contextFactory = new EntityContextFactory();
             contextFactory.WithMappings((MappingBuilder builder) =>
             {
                 builder.FromAssemblyOf<IPerson>();
             });
-
-            //EntityContextFactory.FromConfiguration("dotnet2")
-            //                      .WithDotNetRDF("dotnet2");
-
-
+            
             store = StoresConfigurationSection.Default.CreateStore("dotnet2");
-            //store = new TripleStore();
             contextFactory.WithDotNetRDF(store);
             contextFactory.WithMetaGraphUri(new Uri("http://se.com"));
             context = contextFactory.CreateContext();
