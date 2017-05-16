@@ -8,6 +8,9 @@ using System.Text;
 using System.Threading.Tasks;
 using VDS.RDF;
 using VDS.RDF.Writing;
+using VDS.RDF.Storage;
+using VDS.RDF.Storage.Management;
+using RomanticWeb.DotNetRDF.Configuration;
 
 namespace ConsoleApplication4
 {
@@ -20,12 +23,12 @@ namespace ConsoleApplication4
         static void Main(string[] args)
         {
 
-            initContext();
+            initContextWithStore();
             createPerson("Tim-Berners-Lee", "Tim", "Berners-Lee");
             var tim = loadPerson("Tim-Berners-Lee");
             
             Console.WriteLine(tim.Id);
-            Console.Read();
+           // Console.Read();
         }
 
         public static void initContext()
@@ -51,7 +54,13 @@ namespace ConsoleApplication4
                 builder.FromAssemblyOf<IPerson>();
             });
 
-            store = new TripleStore();
+            //EntityContextFactory.FromConfiguration("dotnet2")
+            //                      .WithDotNetRDF("dotnet2");
+
+
+            store = StoresConfigurationSection.Default.CreateStore("dotnet2");
+
+            //store = new TripleStore();
             contextFactory.WithDotNetRDF(store);
             contextFactory.WithMetaGraphUri(new Uri("http://example.com/data#"));
             context = contextFactory.CreateContext();
