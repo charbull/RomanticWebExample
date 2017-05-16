@@ -9,16 +9,16 @@ using RomanticWeb.Entities;
 
 namespace ConsoleApplication4
 {
-    [Class("foaf", "Person")]
+    [Class("http://se.com#Person")]
     public interface IPerson : IEntity
     {
-        [Property("http://xmlns.com/foaf/0.1/givenName")]
+        [Property("http://se.com/givenName")]
         string Name { get; set; }
 
-        [Property("http://xmlns.com/foaf/0.1/familyName")]
+        [Property("http://se.com/familyName")]
         string LastName { get; set; }
 
-        [Property("http://xmlns.com/foaf/0.1/knows")]
-        ICollection<IPerson> Friends { get; set; }
+        [Property("http://se.com/knows")]
+        IList<IPerson> Friends { get; set; }
     }
 }

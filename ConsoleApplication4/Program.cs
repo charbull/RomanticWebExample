@@ -11,6 +11,7 @@ using VDS.RDF.Writing;
 using VDS.RDF.Storage;
 using VDS.RDF.Storage.Management;
 using RomanticWeb.DotNetRDF.Configuration;
+using System.Collections.ObjectModel;
 
 namespace ConsoleApplication4
 {
@@ -23,13 +24,59 @@ namespace ConsoleApplication4
         static void Main(string[] args)
         {
 
-            initContextWithStore(); 
-            createPerson("Tim-Berners-Lee", "Tim", "Berners-Lee");
-            var tim = loadPerson("Tim-Berners-Lee");
-            
-            Console.WriteLine(tim.Id);
-           // Console.Read();
+            initContextWithStore();
+            //testKnows();
+            //initContextWithStore();
+            testPersonInsert();
+
+
+            //IPerson tim =  createPerson("Tim-Berners-Lee", "Tim", "Berners-Lee");
+            //IPerson John = createPerson("Charbel", "Charbel", "CK");
+            //store.SaveToFile("C:\\output.trig", new TriGWriter());
+            //store.SaveToFile("C:\\output.nq", new NQuadsWriter(tim.Friends = new Collection<IPerson>();
+            //tim.Friends.Add(John);
+
+            //            context.Commit();
+            //store.SaveToFile("C:\\output.trig", new TriGWriter());
+            //store.SaveToFile("C:\\output.nq", new NQuadsWriter());
+            // Console.Read();
         }
+
+        public static void testPersonInsert()
+        {
+            IPerson tim =  createPerson("Tim-Charbel-Lee", "Charbel", "Berners-Lee");
+           
+            store.SaveToFile("C:\\output.trig", new TriGWriter());
+            store.SaveToFile("C:\\output.nq", new NQuadsWriter());
+        }
+
+
+        public static void testKnows()
+        {
+            // create an entity
+            IPerson person = context.Create<IPerson>(new Uri("http://se.com#" + "Charbel"));
+
+            // set some properties
+            person.Name = "Charbel" ;
+            person.LastName = "lastName";
+
+            IPerson person2 = context.Create<IPerson>(new Uri("http://se.com#" + "Charbel2"));
+
+            // set some properties
+            person2.Name = "Charbel2";
+            person2.LastName = "lastName2";
+
+            person.Friends.Add(person2);
+
+            context.Commit();
+            store.SaveToFile("C:\\output.trig", new TriGWriter());
+            store.SaveToFile("C:\\output.nq", new NQuadsWriter());
+
+
+
+        }
+
+
 
         public static void initContext()
         {
@@ -41,7 +88,7 @@ namespace ConsoleApplication4
 
             store = new TripleStore();
             contextFactory.WithDotNetRDF(store);
-            contextFactory.WithMetaGraphUri(new Uri("http://example.com/data#"));
+            contextFactory.WithMetaGraphUri(new Uri("http://se.com"));
             context = contextFactory.CreateContext();
         }
 
@@ -59,18 +106,17 @@ namespace ConsoleApplication4
 
 
             store = StoresConfigurationSection.Default.CreateStore("dotnet2");
-
             //store = new TripleStore();
             contextFactory.WithDotNetRDF(store);
-            contextFactory.WithMetaGraphUri(new Uri("http://example.com/data#"));
+            contextFactory.WithMetaGraphUri(new Uri("http://se.com"));
             context = contextFactory.CreateContext();
         }
 
 
-        public static void createPerson(string personId, string name, string lastName)
+        public static IPerson createPerson(string personId, string name, string lastName)
         {
             // create an entity
-            var person = context.Create<IPerson>(new Uri("http://example.com/data#"+personId));
+            IPerson person = context.Create<IPerson>(new Uri("http://se.com#" + personId));
 
             // set some properties
             person.Name = name;
@@ -78,13 +124,13 @@ namespace ConsoleApplication4
 
             // commit data to store
             context.Commit();
-            store.SaveToFile("C:\\output.trig", new TriGWriter());
-            store.SaveToFile("C:\\output.nq", new NQuadsWriter());
+            //
+            return person;
         }
 
         public static IPerson loadPerson(string personId)
         {
-           return context.Load<IPerson>(new Uri("http://example.com/data#" + personId));
+           return context.Load<IPerson>(new Uri("http://se.com#" + personId));
         }
 
     }
